@@ -1,0 +1,25 @@
+{
+  "name": "twitterfy",
+  "version": "1.0.0",
+  "description": "Analyze and visualize tweets",
+  "main": "index.js",
+  "scripts": {
+    "test": "./index.js",
+    "start": "./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/srowhani/twitterfy.git"
+  },
+  "keywords": [
+    "analyze",
+    "visualize",
+    "twitter"
+  ],
+  "author": "Seena Rowhani",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/srowhani/twitterfy/issues"
+  },
+  "homepage": "https://github.com/srowhani/twitterfy#readme"
+}
