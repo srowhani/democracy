@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "./index.js",
-    "start": "./index.js"
+    "start": "./bin/twitterfy.js"
   },
   "repository": {
     "type": "git",
