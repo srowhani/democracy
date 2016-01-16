@@ -36,18 +36,17 @@
     ].forEach(function(e){
       db.run('create table if not exists ' + e.name + '( ' + e.params.join(', ') + ')')
     });
+
+    client.stream('statuses/filter', {
+      lang: 'en',
+      track: process.argv[2] || "hello"
+    }, function(stream) {
+      stream.on('data', function(tweet) {
+        console.log(tweet);
+      });
+      stream.on('error', function(error) {
+        console.log(error);
+      });
+    });
   });
-
-  // client.stream('statuses/filter', {
-  //   lang: 'en',
-  //   track: process.argv[2] || "hello world"
-  // }, function(stream) {
-  //   stream.on('data', function(tweet) {
-  //     console.log(tweet.text);
-  //   });
-  //   stream.on('error', function(error) {
-  //     console.log(error);
-  //   });
-  // });
-
 })(require('twitter'), require('sqlite3'));
