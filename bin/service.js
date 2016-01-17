@@ -1,9 +1,11 @@
 #!/usr/bin/env node
-
 /**
- * [description]
- * @param  {[type]} function( [description]
- * @return {[type]}           [description]
+ * @author Seena Rowhani
+ * service.js
+ * Runs job to scrape twitter activity and
+ * insert values into sqlite3 db file.
+ * @param  {[type]} Twitter, sqlite3, chalk
+ * @return void
  */
 (function(Twitter, sqlite3, chalk) {
   'use strict';
@@ -58,7 +60,9 @@
       });
     });
   });
-})(require('twitter'), require('sqlite3'), require('chalk'));
+})(require('twitter'),
+   require('sqlite3'),
+   require('chalk'));
 require('process').on('SIGINT', function(){
   console.log('\nGoodbye!');
   process.exit();
