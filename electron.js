@@ -1,12 +1,16 @@
 /* jshint node: true */
 
-var electron = require('electron');
-
-var app = electron.app;
+const electron = require('electron');
+const app = electron.app;
+const BrowserWindow = electron.BrowserWindow;
+const ipcMain = electron.ipcMain;
+const sqlite3 = require('sqlite3');
 var mainWindow = null;
-var BrowserWindow = electron.BrowserWindow;
 
-electron.crashReporter.start();
+ipcMain.on('ready', function(event, arg) {
+  event.sender.send('loading', {});
+
+});
 
 app.on('window-all-closed', function onWindowAllClosed() {
     if (process.platform !== 'darwin') {
@@ -16,6 +20,7 @@ app.on('window-all-closed', function onWindowAllClosed() {
 
 app.on('ready', function onReady() {
     mainWindow = new BrowserWindow({
+        frame: false,
         width: 1000,
         height: 600
     });
