@@ -3,9 +3,10 @@
 module.exports = function(environment) {
   var ENV = {
     modulePrefix: 'twitterfy',
+    podModulePrefix: 'pods',
     environment: environment,
     baseURL: '/',
-    locationType: 'hash',
+    locationType: process.env.EMBER_CLI_ELECTRON ? 'hash' : 'auto',
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
