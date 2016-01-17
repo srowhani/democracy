@@ -2,7 +2,7 @@
   "name": "twitterfy",
   "version": "1.0.0",
   "description": "Analyze and visualize tweets",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "test": "./index.js",
     "start": "./bin/twitterfy.js"
@@ -24,6 +24,7 @@
   "homepage": "https://github.com/srowhani/twitterfy#readme",
   "dependencies": {
     "chalk": "^1.1.1",
+    "electron-prebuilt": "^0.36.4",
     "sqlite3": "^3.1.1",
     "twitter": "^1.2.5"
   }
