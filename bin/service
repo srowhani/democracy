@@ -36,7 +36,7 @@
       stream.on('data', function(tweet) {
         var abbr = tweet.user.location ? utils.abbr(tweet.user.location) : false;
         var notRT = process.argv[2].split(',').some(function(e){
-          return tweet.text.indexOf(e) > -1;
+          return tweet.text.toLowerCase().indexOf(e) > -1;
         });
 
         if (abbr && notRT) {
@@ -65,6 +65,6 @@
    require('../utils')
  );
 require('process').on('SIGINT', function(){
-  console.log('\nGoodbye! Collected ' + c + ' tweets in this scrape sesh');
+  console.log('\nGoodbye!');
   process.exit();
 });

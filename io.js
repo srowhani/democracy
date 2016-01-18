@@ -15,10 +15,9 @@ module.exports = function(server, db) {
             db.serialize(function(){
               db.each(SELECT, function(err, row){
                 if(err) throw err;
-                console.log(row);
+                io.sockets.emit('data', row);
               });
             });
-            io.sockets.emit('data', {});
         });
     });
 }

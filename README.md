@@ -1,13 +1,11 @@
 ## tweek
 
-tweek (name's a work in progress) is an application that I'm working on for a course at Carleton University (COMP3005).
-
-Essentially it's purpose is to:
-
   1. Scrape twitter for tweets regarding a certain topic of interest.
   2. Collect via sqlite3
-  3. Display the metric onto a topology of the United States using Electron and d3
+  3. Send data up via socketio
+  4. Display the metric onto a topology of the United States using express and d3
 
+<img src='assets/ex.png'/>
 ## Prerequisites
 
 You will need the following things properly installed on your computer.
@@ -50,16 +48,15 @@ Make use of the many generators for code, try `ember help generate` for more det
 
 ```bash
 git clone https://github.com/srowhani/tweek.git;
-npm install;
-electron .
+npm install && bower install;
+./bin/www;
 ```
 #### Starting the scraper
 
 ```bash
 cd $PATH_TO_tweek_REPO
-./bin/tweek.js
+./bin/tweek.js 'c,s,v';
 ```
-
 
 ## Further Reading / Useful Links
 
