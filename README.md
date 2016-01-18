@@ -1,6 +1,6 @@
-## twitterfy
+## tweek
 
-Twitterfy (name's a work in progress) is an application that I'm working on for a course at Carleton University (COMP3005).
+tweek (name's a work in progress) is an application that I'm working on for a course at Carleton University (COMP3005).
 
 Essentially it's purpose is to:
 
@@ -49,15 +49,15 @@ Make use of the many generators for code, try `ember help generate` for more det
 #### Running the application
 
 ```bash
-git clone https://github.com/srowhani/twitterfy.git;
+git clone https://github.com/srowhani/tweek.git;
 npm install;
 electron .
 ```
 #### Starting the scraper
 
 ```bash
-cd $PATH_TO_TWITTERFY_REPO
-./bin/twitterfy.js
+cd $PATH_TO_tweek_REPO
+./bin/tweek.js
 ```
 
 

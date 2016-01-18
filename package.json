@@ -1,7 +1,7 @@
 {
-  "name": "twitterfy",
+  "name": "tweek",
   "version": "0.0.0",
-  "description": "Small description for twitterfy goes here",
+  "description": "Small description for tweek goes here",
   "private": true,
   "directories": {
     "doc": "doc",

@@ -7,9 +7,9 @@
  * @param  {[type]} Twitter, sqlite3, chalk
  * @return void
  */
-(function(Twitter, sqlite3, chalk) {
+(function(Twitter, sqlite3, chalk, utils) {
   'use strict';
-  var db = new sqlite3.Database('data/twitterfy.db');
+  var db = new sqlite3.Database('data/tweek.db');
   var client = new Twitter({
     consumer_key: process.env.TWITTER_CONSUMER_KEY,
     consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
@@ -31,38 +31,33 @@
       lang: 'en',
       track: process.argv[2] || "hello"
     }, function(stream) {
-      console.log(chalk.green('Running job...\nPress CTRL + C to exit.'));
+      utils.log('Running job...\nPress CTRL + C to exit.');
       stream.on('data', function(tweet) {
-        if (tweet.user.location) {
+        var abbr = tweet.user.location ? utils.abbr(tweet.user.location) : false;
+        if (abbr) {
           db.run('insert into tweets values(?, ?, ?)',
             tweet.id,
             tweet.text,
             tweet.user.id,
-            function(e, r) {
-              if(e) console.log(chalk.red(e));
-            }
+            utils.error
           );
           db.run('insert into users values(?, ?, ?, ?)',
             tweet.user.id,
             tweet.user.screen_name,
             tweet.user.profile_image_url,
-            tweet.user.location,
-            function(e, r) {
-              if(e)
-                if(e !== 'Error: SQLITE_CONSTRAINT: UNIQUE constraint failed: users.id')
-                  console.log(chalk.red(e));
-            }
+            abbr,
+            utils.error
           );
         }
       });
-      stream.on('error', function(e) {
-        if(e) console.log(chalk.bold.red(e));
-      });
+      stream.on('error', utils.error);
     });
   });
 })(require('twitter'),
    require('sqlite3'),
-   require('chalk'));
+   require('chalk'),
+   require('../utils')
+ );
 require('process').on('SIGINT', function(){
   console.log('\nGoodbye!');
   process.exit();

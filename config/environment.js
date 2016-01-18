@@ -2,7 +2,7 @@
 
 module.exports = function(environment) {
   var ENV = {
-    modulePrefix: 'twitterfy',
+    modulePrefix: 'tweek',
     podModulePrefix: 'pods',
     environment: environment,
     baseURL: '/',
