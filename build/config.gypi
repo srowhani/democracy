@@ -20,9 +20,9 @@
     "icu_ver_major": "56",
     "llvm_version": 0,
     "node_byteorder": "little",
-    "node_install_npm": "false",
-    "node_prefix": "/usr/local/Cellar/node/4.2.1",
-    "node_release_urlbase": "",
+    "node_install_npm": "true",
+    "node_prefix": "/",
+    "node_release_urlbase": "https://nodejs.org/download/release/",
     "node_shared_http_parser": "false",
     "node_shared_libuv": "false",
     "node_shared_openssl": "false",
@@ -44,10 +44,12 @@
     "v8_no_strict_aliasing": 1,
     "v8_optimized_debug": 0,
     "v8_random_seed": 0,
-    "v8_use_snapshot": 1,
+    "v8_use_snapshot": "true",
     "want_separate_host_toolset": 0,
-    "nodedir": "/Users/root1/.node-gyp/4.2.1",
+    "nodedir": "/Users/root1/.node-gyp/0.22.0",
     "copy_dev_lib": "true",
-    "standalone_static_library": 1
+    "standalone_static_library": 1,
+    "target": "0.22.0",
+    "target_platform": "linux"
   }
 }

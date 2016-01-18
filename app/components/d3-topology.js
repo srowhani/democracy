@@ -1,13 +1,9 @@
 import Ember from 'ember';
-const ipcRenderer = require('electron').ipcRenderer;
-
+var socket = io();
 export default Ember.Component.extend({
   tagName: 'svg',
   didInsertElement() {
-    ipcRenderer.on('data', function(event, arg) {
-      console.log(arg); // prints "pong"
-    });
-    ipcRenderer.send('ready', {});
+    socket.emit('ready', {});
     var svg = d3.select(this.element)
       .attr('width', 900)
       .attr('height', 550);
