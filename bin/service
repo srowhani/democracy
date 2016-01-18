@@ -4,11 +4,12 @@
  * service.js
  * Runs job to scrape twitter activity and
  * insert values into sqlite3 db file.
- * @param  {[type]} Twitter, sqlite3, chalk
+ * @param  {[type]} Twitter, sqlite3
  * @return void
  */
-(function(Twitter, sqlite3, chalk, utils) {
+(function(Twitter, sqlite3, utils) {
   'use strict';
+  var c = 0;
   var db = new sqlite3.Database('data/tweek.db');
   var client = new Twitter({
     consumer_key: process.env.TWITTER_CONSUMER_KEY,
@@ -34,7 +35,13 @@
       utils.log('Running job...\nPress CTRL + C to exit.');
       stream.on('data', function(tweet) {
         var abbr = tweet.user.location ? utils.abbr(tweet.user.location) : false;
-        if (abbr) {
+        var notRT = process.argv[2].split(',').some(function(e){
+          return tweet.text.indexOf(e) > -1;
+        });
+
+        if (abbr && notRT) {
+          c++;
+          utils.log('Got one!');
           db.run('insert into tweets values(?, ?, ?)',
             tweet.id,
             tweet.text,
@@ -55,10 +62,9 @@
   });
 })(require('twitter'),
    require('sqlite3'),
-   require('chalk'),
    require('../utils')
  );
 require('process').on('SIGINT', function(){
-  console.log('\nGoodbye!');
+  console.log('\nGoodbye! Collected ' + c + ' tweets in this scrape sesh');
   process.exit();
 });
