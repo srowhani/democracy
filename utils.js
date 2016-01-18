@@ -53,12 +53,21 @@ var states = [
   ['Wyoming', 'WY'],
 ];
 var chalk = require('chalk');
+var prompt = [
+  {start: 'Fishing for compliments...', response: 'You shouldn\'t have!'},
+  {start: 'I had a dream...', response: 'I used to read word-up magaine'},
+  {start: 'Scanning for viruses...', response: 'Virus Detected'}
+];
+
 module.exports = {
   log: function(e){
     if(e) console.log(chalk.green(e));
   },
   error: function(e){
     if(e) console.log(chalk.red(e));
+  },
+  prompt: function(){
+    return prompt[Math.floor(Math.random() * prompt.length)];
   },
   abbr: function(input, to) {
     input = input.replace(/\w\S*/g, function(txt) {
