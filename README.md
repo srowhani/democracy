@@ -25,12 +25,8 @@ You will need the following things properly installed on your computer.
 
 ## Running / Development
 
-* `ember server`
+* `npm run serve`
 * Visit your app at [http://localhost:4200](http://localhost:4200).
-
-### Code Generators
-
-Make use of the many generators for code, try `ember help generate` for more details
 
 ### Running Tests
 
@@ -49,14 +45,40 @@ Make use of the many generators for code, try `ember help generate` for more det
 ```bash
 git clone https://github.com/srowhani/tweek.git;
 npm install && bower install;
-./bin/www;
+npm run serve;
 ```
 #### Starting the scraper
 
 ```bash
 cd $PATH_TO_tweek_REPO
-./bin/tweek.js 'c,s,v';
+npm run job "c,s,v';
 ```
+
+The scraper requires a [twitter developer key](https://apps.twitter.com/). 
+
+You need to set some environment variables to get started.
+The scraper relies on this here. And it's not too verbose about whether the info is correct or not.
+
+```js
+  var client = new Twitter({
+    consumer_key: process.env.TWITTER_CONSUMER_KEY,
+    consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+    access_token_key: process.env.TWITTER_ACCESS_KEY,
+    access_token_secret: process.env.TWITTER_ACCESS_SECRET,
+  });
+```
+
+You'll have to export the following in whatever shell you use.
+
+```bash
+ export TWITTER_CONSUMER_KEY=<consumer_key>
+ export TWITTER_CONSUMER_SECRET=<secret>
+ export TWITTER_ACCESS_KEY=<access_key>
+ export TWITTER_ACCESS_SECRET=<access_secret>
+```
+You can get these variables from twitters app dev dashboard.
+
+<img src='assets/ex2.png'/>
 
 ## Further Reading / Useful Links
 
