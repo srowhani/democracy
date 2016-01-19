@@ -40,7 +40,6 @@
         });
 
         if (abbr && notRT) {
-          c++;
           utils.log(p.response);
           db.run('insert into tweets values(?, ?, ?)',
             tweet.id,

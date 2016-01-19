@@ -5,22 +5,29 @@ export default Ember.Component.extend({
   didInsertElement() {
     let obj = {};
     let republican = 'votetrump,votefortrump,trump2016'.split(',');
-    let democrat = 'votehilary,voteclinton,clinton2016,voteforclinton,votesanders,voteforsanders,votebernie,voteforbernie'.split(',');
+    let democrat = 'votehillary,hillary2016,voteclinton,clinton2016,voteforclinton,votesanders,voteforsanders,votebernie,voteforbernie'.split(',');
     socket.on('data', function(e){
       let text = e.text.toLowerCase();
       if(republican.some(function(e){
         return text.includes(e);
       })){
-        obj[e.location] = isNaN(obj[e.location]) ? -1 : obj[e.location]--;
+        if(obj[e.location] !== undefined)
+          obj[e.location]--;
+        else
+          obj[e.location] = -1;
       }
       else if(democrat.some(function(e){
         return text.includes(e);
       })){
-        obj[e.location] = isNaN(obj[e.location]) ? 1 : obj[e.location]++;
+        if(obj[e.location] !== undefined)
+          obj[e.location]++;
+        else
+          obj[e.location] = +1;
       }
       Object.keys(obj).forEach(function(e){
-        document.querySelector('.' + e).style.fill = obj[e] > -1 ? 'rgb(113, 115, 219)' : 'rgb(201, 58, 58)';
+        document.querySelector('.' + e).style.fill = obj[e] > -1 ? `rgb(113, 115, ${219 + obj[e] * 2})` : `rgb(${201 - obj[e] * 2}, 58, 58)`;
       });
+      console.log(obj);
     })
     var svg = d3.select(this.element)
       .attr('width', 900)

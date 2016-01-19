@@ -55,7 +55,7 @@ var states = [
 var chalk = require('chalk');
 var prompt = [
   {start: 'Fishing for compliments...', response: 'You shouldn\'t have!'},
-  {start: 'I had a dream...', response: 'I used to read word-up magaine'},
+  {start: 'I had a dream...', response: 'I used to read word-up magazine'},
   {start: 'Scanning for viruses...', response: 'Virus Detected'}
 ];
 
