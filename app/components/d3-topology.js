@@ -27,7 +27,6 @@ export default Ember.Component.extend({
       Object.keys(obj).forEach(function(e){
         document.querySelector('.' + e).style.fill = obj[e] > -1 ? `rgb(113, 115, ${219 + obj[e] * 2})` : `rgb(${201 - obj[e] * 2}, 58, 58)`;
       });
-      console.log(obj);
     })
     var svg = d3.select(this.element)
       .attr('width', 900)
