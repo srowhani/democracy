@@ -14,29 +14,15 @@ var io = require('../io')(server, db);
 var port = parseInt(process.env.PORT, 10) || 3000;
 app.set('port', port);
 
-/**
- * Create HTTP server.
- */
-
-
-/**
- * Listen on provided port, on all network interfaces.
- */
-
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
-
-/**
- * Event listener for HTTP server "error" event.
- */
 
 function onError(error) {
   if (error.syscall !== 'listen') {
     throw error;
   }
 
-  // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
       console.error('Port ' + port + ' requires elevated privileges');
@@ -50,11 +36,6 @@ function onError(error) {
       throw error;
   }
 }
-
-/**
- * Event listener for HTTP server "listening" event.
- */
-
 function onListening() {
   debug('Listening on port ' + server.address().port);
 }
