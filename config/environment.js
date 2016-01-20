@@ -2,7 +2,7 @@
 
 module.exports = function(environment) {
   var ENV = {
-    modulePrefix: 'tweek',
+    modulePrefix: 'democracy',
     podModulePrefix: 'pods',
     environment: environment,
     baseURL: '/',

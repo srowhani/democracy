@@ -17,4 +17,4 @@ npm-debug.log
 testem.log
 
 #data
-/data/tweek.db
+/data/democracy.db

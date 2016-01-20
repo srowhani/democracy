@@ -1,4 +1,4 @@
-## tweek
+## democracy
 
   1. Scrape twitter for tweets regarding a certain topic of interest.
   2. Collect via sqlite3
@@ -43,14 +43,14 @@ You will need the following things properly installed on your computer.
 #### Running the application
 
 ```bash
-git clone https://github.com/srowhani/tweek.git;
+git clone https://github.com/srowhani/democracy.git;
 npm install && bower install;
 npm run serve;
 ```
 #### Starting the scraper
 
 ```bash
-cd $PATH_TO_tweek_REPO
+cd $PATH_TO_democracy_REPO
 npm run job "c,s,v';
 ```
 

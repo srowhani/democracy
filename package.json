@@ -1,7 +1,7 @@
 {
-  "name": "tweek",
+  "name": "democracy",
   "version": "0.0.0",
-  "description": "Small description for tweek goes here",
+  "description": "Small description for democracy goes here",
   "private": true,
   "directories": {
     "doc": "doc",
