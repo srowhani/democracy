@@ -27,9 +27,9 @@ export default Ember.Component.extend({
       }
       Object.keys(obj).forEach(function(e) {
         if (obj[e].r - obj[e].d === 0)
-          document.querySelector('.' + e).style.fill = '';
+          document.querySelector(`.${e}`).style.fill = '';
         else
-          document.querySelector('.' + e).style.fill = obj[e].r - obj[e].d > -1 ? `rgb(113, 115, ${219 + (obj[e].d - obj[e].r) * 2})` : `rgb(${201 + (obj[e].r - obj[e].d) * 2}, 58, 58)`;
+          document.querySelector(`.${e}`).style.fill = obj[e].d >= obj[e].r ? `rgb(58, 58, ${219 + (obj[e].d - obj[e].r) * 2})` : `rgb(${201 + (obj[e].r - obj[e].d) * 2}, 58, 58)`;
       });
     })
     var svg = d3.select(this.element)

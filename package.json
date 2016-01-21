@@ -12,7 +12,7 @@
     "job": "./bin/service",
     "serve": "ember build && ./bin/www",
     "test": "ember test",
-    "start": "./bin/service \"#votetrump,#votefortrump,#trump2016,#hillary2016,#votehillary,#voteclinton,#clinton2016,#voteforclinton,#votesanders,#voteforsanders,#votebernie,#voteforbernie\" && ./bin/www"
+    "start": "./bin/service \"#votetrump,#votefortrump,#trump2016,#hillary2016,#votehillary,#voteclinton,#clinton2016,#voteforclinton,#votesanders,#voteforsanders,#votebernie,#voteforbernie\" & ; ./bin/www;"
   },
   "repository": "",
   "engines": {
