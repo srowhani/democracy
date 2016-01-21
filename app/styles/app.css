@@ -45,9 +45,12 @@
 .states {
   transition: fill .5s ease;
   opacity: 0.8;
-  &:hover {
-    opacity: 0.6;
-  }
+}
+.states:focus {
+  outline: 0;
+}
+.states:hover {
+  opacity: 0.6;
 }
 div.twitter-tweet-rendered p.entry-title {
     font-size: 12px !important;
