@@ -1,5 +1,7 @@
 ## democracy 
 
+See the [demo](159.203.14.152:3000) for reference.
+
   1. Scrape twitter for tweets regarding a certain topic of interest.
   2. Collect via sqlite3
   3. Send data up via socketio
