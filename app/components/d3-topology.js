@@ -7,6 +7,7 @@ export default Ember.Component.extend({
     let republican = 'votetrump,votefortrump,trump2016'.split(',');
     let democrat = 'votehillary,hillary2016,voteclinton,clinton2016,voteforclinton,votesanders,voteforsanders,votebernie,voteforbernie'.split(',');
     socket.on('data', function(e) {
+      console.log(e);
       let text = e.text.toLowerCase();
       if (republican.some(function(e) {
           return text.includes(e);

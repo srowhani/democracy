@@ -46,16 +46,24 @@
             tweet.id,
             tweet.text,
             tweet.user.id,
-            utils.error
+            function(err, res){
+              if(err) throw err;
+              db.run('insert into users values(?, ?, ?, ?)',
+                tweet.user.id,
+                tweet.user.screen_name,
+                tweet.user.profile_image_url,
+                abbr,
+                utils.error
+              );
+              socket.emit('push', {
+                location: abbr,
+                screen_name: tweet.user.screen_name,
+                text: tweet.text,
+                user_id: tweet.user.id
+              });
+            }
           );
-          db.run('insert into users values(?, ?, ?, ?)',
-            tweet.user.id,
-            tweet.user.screen_name,
-            tweet.user.profile_image_url,
-            abbr,
-            utils.error
-          );
-          socket.emit('push', {});
+
         }
       });
       stream.on('error', utils.error);
