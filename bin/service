@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 /**
  * @author Seena Rowhani
  * service.js
@@ -31,36 +32,42 @@
 
     client.stream('statuses/filter', {
       lang: 'en',
-      track: process.argv[2] || "hello"
+      track: process.argv[2]
     }, function(stream) {
       utils.log(p.start + '\nPress CTRL + C to exit.');
       stream.on('data', function(tweet) {
         var abbr = tweet.user.location ? utils.abbr(tweet.user.location) : false;
-        var notRT = process.argv[2].split(',').some(function(e){
+        var notRT = process.argv[2].split(',').some(function(e) {
           return tweet.text.toLowerCase().indexOf(e) > -1;
         });
-
         if (abbr && notRT) {
           utils.log(p.response);
           db.run('insert into tweets values(?, ?, ?)',
             tweet.id,
             tweet.text,
             tweet.user.id,
-            function(err, res){
-              if(err) throw err;
-              db.run('insert into users values(?, ?, ?, ?)',
-                tweet.user.id,
-                tweet.user.screen_name,
-                tweet.user.profile_image_url,
-                abbr,
-                utils.error
-              );
-              socket.emit('push', {
-                location: abbr,
-                screen_name: tweet.user.screen_name,
-                text: tweet.text,
-                user_id: tweet.user.id
-              });
+            function(err, res) {
+              if (!err) {
+                db.run('insert into users values(?, ?, ?, ?)',
+                  tweet.user.id,
+                  tweet.user.screen_name,
+                  tweet.user.profile_image_url,
+                  abbr,
+                  utils.error
+                );
+                socket.emit('push', {
+                  location: abbr,
+                  screen_name: tweet.user.screen_name,
+                  text: tweet.text,
+                  user_id: tweet.user.id
+                });
+                client.get('statuses/oembed', {
+                  id: tweet.id_str,
+                  version: 1
+                }, function(err, res) {
+                  socket.emit('tweet', res);
+                });
+              }
             }
           );
 
@@ -70,11 +77,11 @@
     });
   });
 })(require('twitter'),
-   require('sqlite3'),
-   require('../utils'),
-   require('socket.io-client')
- );
-require('process').on('SIGINT', function(){
+  require('sqlite3'),
+  require('../utils'),
+  require('socket.io-client')
+);
+require('process').on('SIGINT', function() {
   console.log('\nGoodbye!');
   process.exit();
 });

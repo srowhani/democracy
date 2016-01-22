@@ -22,5 +22,8 @@ module.exports = function(server, db) {
         socket.on('push', function(d){
           io.sockets.emit('data', d);
         });
+        socket.on('tweet', function(d){
+          io.sockets.emit('tweet', d);
+        })
     });
 }

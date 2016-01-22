@@ -7,7 +7,6 @@ export default Ember.Component.extend({
     let republican = 'votetrump,votefortrump,trump2016'.split(',');
     let democrat = 'votehillary,hillary2016,voteclinton,clinton2016,voteforclinton,votesanders,voteforsanders,votebernie,voteforbernie'.split(',');
     socket.on('data', function(e) {
-      console.log(e);
       let text = e.text.toLowerCase();
       if (republican.some(function(e) {
           return text.includes(e);
@@ -32,6 +31,9 @@ export default Ember.Component.extend({
         else
           document.querySelector(`.${e}`).style.fill = obj[e].d >= obj[e].r ? `rgb(58, 58, ${219 + (obj[e].d - obj[e].r) * 2})` : `rgb(${201 + (obj[e].r - obj[e].d) * 2}, 58, 58)`;
       });
+    });
+    socket.on('tweet', function(e){
+      document.querySelector('.tweet').innerHTML = e.html;
     })
     var svg = d3.select(this.element)
       .attr('width', 900)
