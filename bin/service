@@ -61,12 +61,6 @@
                   text: tweet.text,
                   user_id: tweet.user.id
                 });
-                client.get('statuses/oembed', {
-                  id: tweet.id_str,
-                  version: 1
-                }, function(err, res) {
-                  socket.emit('tweet', res);
-                });
               }
             }
           );

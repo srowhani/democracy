@@ -33,7 +33,8 @@ export default Ember.Component.extend({
       });
     });
     socket.on('tweet', function(e){
-      document.querySelector('.tweet').innerHTML = e.html;
+      document.querySelector('.tweet').innerHTML = 
+        `[${e.location} - ${e.screen_name}]: ${e.text}`;
     })
     var svg = d3.select(this.element)
       .attr('width', 900)

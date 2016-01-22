@@ -7,10 +7,9 @@
  */
 module.exports = function(server, db) {
     "use strict";
-    var SELECT = 'select screen_name, text, location, user_id from tweets join users on tweets.user_id = users.id;';
+    var SELECT = 'select screen_name, text, location, user_id from tweets join users on tweets.user_id = users.id limit 1000;';
     var io = require('socket.io')(server);
     io.sockets.on('connection', function(socket) {
-        console.log(socket.id + " has connected...");
         socket.on('ready', function(){
           db.serialize(function(){
               db.each(SELECT, function(err, row){
@@ -21,9 +20,7 @@ module.exports = function(server, db) {
         });
         socket.on('push', function(d){
           io.sockets.emit('data', d);
-        });
-        socket.on('tweet', function(d){
           io.sockets.emit('tweet', d);
-        })
+        });
     });
 }
