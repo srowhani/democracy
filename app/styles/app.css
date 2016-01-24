@@ -249,3 +249,8 @@ div.twitter-tweet-rendered div.footer a.view-details span {
   -o-transform: rotate(-45deg);
   transform: rotate(-45deg);
 }
+.EmbeddedTweet {
+  position:absolute;
+  bottom: 0
+  right: 0
+}

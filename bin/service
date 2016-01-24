@@ -56,6 +56,7 @@
                   utils.error
                 );
                 socket.emit('push', {
+                  id: tweet.id_str,
                   location: abbr,
                   screen_name: tweet.user.screen_name,
                   text: tweet.text,

@@ -1,5 +1,8 @@
 <h2 id="title">Twitter Votes for 2016 US Candidates</h2>
 {{d3-topology}}
+{{#if id}}
+  {{twitter-block id=id author=screen_name}}
+{{/if}}
 <ul style='position: absolute; top: 5px; right: 5px; font-size:90%' class="legend">
   <li>
     <span style='background-color: rgb(113, 115, 219)'></span>Democrat</li>
@@ -8,9 +11,8 @@
   <li>
     <span style='background-color: rgb(50, 51, 51)'></span>Neutral</li>
 </ul>
-<div tabindex="-1" class="github-fork-ribbon-wrapper right-bottom">
-  <div tabindex="-1" class="github-fork-ribbon">
-    <a tabindex="-1" href="https://github.com/srowhani/democracy">Fork me on GitHub</a>
+<div class="github-fork-ribbon-wrapper left-bottom">
+  <div class="github-fork-ribbon">
+    <a href="https://github.com/srowhani/democracy">Fork me on GitHub</a>
   </div>
 </div>
-<div class='tweet'></div>

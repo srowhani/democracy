@@ -1,9 +1,9 @@
 import Ember from 'ember';
-var socket = io();
 export default Ember.Component.extend({
   tagName: 'svg',
   didInsertElement() {
     let obj = {};
+    let socket = io();
     let republican = 'votetrump,votefortrump,trump2016'.split(',');
     let democrat = 'votehillary,hillary2016,voteclinton,clinton2016,voteforclinton,votesanders,voteforsanders,votebernie,voteforbernie'.split(',');
     socket.on('data', function(e) {
@@ -32,10 +32,7 @@ export default Ember.Component.extend({
           document.querySelector(`.${e}`).style.fill = obj[e].d >= obj[e].r ? `rgb(58, 58, ${219 + (obj[e].d - obj[e].r) * 2})` : `rgb(${201 + (obj[e].r - obj[e].d) * 2}, 58, 58)`;
       });
     });
-    socket.on('tweet', function(e){
-      document.querySelector('.tweet').innerHTML = 
-        `[${e.location} - ${e.screen_name}]: ${e.text}`;
-    })
+
     var svg = d3.select(this.element)
       .attr('width', 900)
       .attr('height', 550);
