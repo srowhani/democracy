@@ -1,1 +1,13 @@
 Recognize tweets from only users with locations set properly (city, state)
+{ id: '0073b76548e5984f',
+  url: 'https://api.twitter.com/1.1/geo/id/0073b76548e5984f.json',
+  place_type: 'city',
+  name: 'Sydney',
+  full_name: 'Sydney, New South Wales',
+  country_code: 'AU',
+  country: 'Australia',
+  bounding_box: { type: 'Polygon', coordinates: [ [Object] ] },
+  attributes: {} }
+
+  Make table for places
+  
