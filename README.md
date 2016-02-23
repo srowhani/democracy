@@ -7,7 +7,7 @@ See the [demo](http://159.203.14.152:3000) for reference.
   3. Send data up via socketio
   4. Display the metric onto a topology of the United States using express and d3
 
-<img src='assets/ex.png'/>
+<img src='ex.png'/>
 ## Prerequisites
 
 You will need the following things properly installed on your computer.
