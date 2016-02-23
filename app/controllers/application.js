@@ -5,9 +5,7 @@ export default Ember.Controller.extend({
   init(){
     var self = this;
     io().on('tweet', function(d){
-      Object.keys(d).forEach(function(e){
-        self.set(`${e}`, d[e]);
-      });
+      self.set('tweet', d);
     });
   }
 })

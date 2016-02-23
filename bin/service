@@ -11,7 +11,7 @@
 (function(Twitter, sqlite3, utils, io) {
   'use strict';
   var p = utils.prompt();
-  var socket = io.connect('http://localhost:3000');
+  var socket = io.connect('http://localhost:80');
   var db = new sqlite3.Database('data/democracy.db');
   var client = new Twitter({
     consumer_key: process.env.TWITTER_CONSUMER_KEY,

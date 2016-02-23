@@ -11,7 +11,7 @@ var server = http.createServer(app);
 var sqlite3 = require('sqlite3');
 var db = new sqlite3.Database('data/democracy.db');
 var io = require('../io')(server, db);
-var port = parseInt(process.env.PORT, 10) || 3000;
+var port = parseInt(process.env.PORT, 10) || 80;
 app.set('port', port);
 
 server.listen(port);
