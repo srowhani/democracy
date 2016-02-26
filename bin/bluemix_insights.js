@@ -28,20 +28,9 @@
       function(err, row){
         var id = row.id;
         var query = [];
-        db.serialize(function(){
-          db.each('select text from tweets where tweets.user_id = ' + id + ';', function(e, r){
-            query.push(r.text);
-          });
+        db.all('select text from tweets where tweets.user_id = ' + id + ';', function(e, r){
+          var a = r.reduce()
         });
-        setTimeout(function(){
-          personality_insights.profile({
-            text: query,
-            language: 'en'
-          }, function(er, response){
-            if(response) console.log(response.tree.children[0]);
-          })
-        }, 2000);
-
       });
   });
 
