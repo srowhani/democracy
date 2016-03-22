@@ -13,5 +13,8 @@
         </div>
       {{/paper-item}}
     {{/each}}
+    <div style='position:relative; text-align: center;'>
+      {{#paper-button disabled=buttonDisabled raised=true primary=true action="loadMore" target=component}}Load More{{/paper-button}}
+    </div>
   {{/paper-list}}
 {{/paper-content}}

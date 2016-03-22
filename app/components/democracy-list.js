@@ -1,14 +1,20 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+  buttonDisabled: false,
+  oldFilter: null,
+  force: null,
   classNames: ['content-height'],
   offset: 0,
-  limit: 50,
+  limit: 10,
   results: Ember.A(),
-  filteredResults: Ember.computed('filter', function(){
-    console.log('filter computed');
+  filteredResults: Ember.computed('filter', 'force', function(){
     let self = this;
-
+    if(self.get('oldFilter') !== self.get('filter')){
+      self.set('offset', 0);
+      self.set('oldFilter', self.get('filter'));
+      self.set('buttonDisabled', false);
+    }
     let r = this.get('results');
     let f = this.get('filter');
     if(!f) return r;
@@ -26,29 +32,30 @@ export default Ember.Component.extend({
     let self = this;
     socket.emit('load_tweets', {
       offset: self.get('offset'),
-      filter: self.get('filter') || ""
+      filter: self.get('filter') || "",
+      limit: self.get('limit')
     });
     socket.on('tweet_list', function(e){
-      console.log("loading tweets");
+      self.set('buttonDisabled', !e.length);
       let l = self.get('results');
-
       Array.prototype.push.apply(l, e);
       self.set('results', l);
-      self.set('filter', self.get('filter') ? self.get('filter') + '' : '');
+      self.set('force', Math.random()); //force property recompute
+      self.rerender();
     });
+  },
 
-    //fires for qt3.14 paginate
-    let element = document.querySelector('.paper-list');
-    element.addEventListener('scroll', function(e){
-      if(element.offsetHeight + element.scrollTop >= element.scrollHeight){
-        console.log('scroll event has fired');
-        self.set('offset', self.get('offset') + self.get('limit'))
-        socket.emit('load_tweets', {
-          offset: self.get('offset'),
-          filter: self.get('filter') || ""
-        });
-        self.set('filter', self.get('filter') ? self.get('filter') + '' : '');
-      }
-    }, false);
+  actions : {
+    loadMore: function(){
+      let self = this;
+      let v = self.get('offset') + self.get('limit');
+      self.set('offset', v);
+      io().emit('load_tweets', {
+        offset: self.get('offset'),
+        filter: self.get('filter') || "",
+        limit: self.get('limit')
+      });
+      self.rerender();
+    }
   }
 });

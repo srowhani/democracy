@@ -19,11 +19,17 @@ module.exports = function(server, db) {
             });
         });
         socket.on('load_tweets', function(query){
+          console.log(query);
           db.serialize(function(){
-              var q = 'select screen_name, text, location, profile_image, user_id from ' +
-                      'tweets join users where tweets.user_id = users.id limit 50 offset ?;'
 
-              db.all(q, query.offset, function(err, rows){
+              var q = 'select screen_name, text, location, profile_image, user_id from ' +
+                      'tweets join users where tweets.user_id = users.id and (screen_name like $filter or text like $filter) limit $limit offset $offset;'
+
+              db.all(q, {
+                $filter : "%" + query.filter + "%",
+                $offset : query.offset,
+                $limit  : query.limit
+              }, function(err, rows){
                 if(err) throw err;
                 io.sockets.emit('tweet_list', rows);
               });
