@@ -6,30 +6,32 @@ export default Ember.Component.extend({
     let socket = io();
     let republican = 'votetrump,votefortrump,trump2016'.split(',');
     let democrat = 'votehillary,hillary2016,voteclinton,clinton2016,voteforclinton,votesanders,voteforsanders,votebernie,voteforbernie'.split(',');
-    socket.on('data', function(e) {
-      let text = e.text.toLowerCase();
-      if (republican.some(function(e) {
-          return text.includes(e);
-        })) {
-        obj[e.location] = obj[e.location] || {
-          r: 0,
-          d: 0
-        };
-        obj[e.location]['r']++;
-      } else if (democrat.some(function(e) {
-          return text.includes(e);
-        })) {
-        obj[e.location] = obj[e.location] || {
-          r: 0,
-          d: 0
-        };
-        obj[e.location]['d']++;
-      }
-      Object.keys(obj).forEach(function(e) {
-        if (obj[e].r - obj[e].d === 0)
-          document.querySelector(`.${e}`).style.fill = '';
-        else
-          document.querySelector(`.${e}`).style.fill = obj[e].d >= obj[e].r ? `rgb(58, 58, ${219 + (obj[e].d - obj[e].r) * 2})` : `rgb(${201 + (obj[e].r - obj[e].d) * 2}, 58, 58)`;
+    socket.on('data', function(el) {
+      el.forEach(function(e) {
+        let text = e.text.toLowerCase();
+        if (republican.some(function(e) {
+            return text.includes(e);
+          })) {
+          obj[e.location] = obj[e.location] || {
+            r: 0,
+            d: 0
+          };
+          obj[e.location]['r']++;
+        } else if (democrat.some(function(e) {
+            return text.includes(e);
+          })) {
+          obj[e.location] = obj[e.location] || {
+            r: 0,
+            d: 0
+          };
+          obj[e.location]['d']++;
+        }
+        Object.keys(obj).forEach(function(e) {
+          if (obj[e].r - obj[e].d === 0)
+            document.querySelector(`.${e}`).style.fill = '';
+          else
+            document.querySelector(`.${e}`).style.fill = obj[e].d >= obj[e].r ? `rgb(58, 58, ${219 + (obj[e].d - obj[e].r) * 2})` : `rgb(${201 + (obj[e].r - obj[e].d) * 2}, 58, 58)`;
+        });
       });
     });
 
@@ -74,11 +76,9 @@ export default Ember.Component.extend({
         })
         .on('click', function(d) {
           tip.hide();
-          tip.html(function(data){
+          tip.html(function(data) {
             var state = data.properties.STATE_ABBR;
-            return `State: ${state}<br/>`
-              +    `Republican: ${!obj[state] ? 0 : obj[state].r}<br/>`
-              +    `Democratic: ${!obj[state] ? 0 : obj[state].d}`;
+            return `State: ${state}<br/>` + `Republican: ${!obj[state] ? 0 : obj[state].r}<br/>` + `Democratic: ${!obj[state] ? 0 : obj[state].d}`;
           });
           tip.attr('class', 'd3-tip animate').show(d);
         });

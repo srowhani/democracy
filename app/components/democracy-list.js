@@ -5,7 +5,8 @@ export default Ember.Component.extend({
   offset: 0,
   limit: 50,
   results: Ember.A(),
-  filteredResults: Ember.computed('filter', 'results.@each', function(){
+  filteredResults: Ember.computed('filter', 'results', function(){
+    console.log('filter computed');
     let self = this;
 
     let r = this.get('results');
@@ -28,23 +29,26 @@ export default Ember.Component.extend({
       filter: self.get('filter') || ""
     });
     socket.on('tweet_list', function(e){
+      console.log("loading tweets");
       let l = self.get('results');
-      l.push(e);
+
+      Array.prototype.push.apply(l, e);
+      console.log(l);
       self.set('results', l);
+      self.set('filter', self.get('filter') + '');
     });
 
     //fires for qt3.14 paginate
     let element = document.querySelector('.paper-list');
     element.addEventListener('scroll', function(e){
-      if(element.scrollTop > window.innerHeight - 100){
+      if(element.offsetHeight + element.scrollTop >= element.scrollHeight){
         console.log('scroll event has fired');
-        self.set('offset', self.get('offset') + this.get('limit'))
+        self.set('offset', self.get('offset') + self.get('limit'))
         socket.emit('load_tweets', {
           offset: self.get('offset'),
           filter: self.get('filter') || ""
         });
       }
-
     }, false);
   }
 });

@@ -1,8 +1,8 @@
-{{#paper-content class="md-whiteframe-z1"}}
-  {{paper-input label="Filter" value=filter}}
-  {{#paper-list}}
+{{#paper-content class="md-whiteframe-z1 content-height"}}
+  {{paper-input label="Filter" value=filter class='no-pad-bottom'}}
+  {{#paper-list class='content-height'}}
     {{#each filteredResults as |item|}}
-      {{#paper-item class="md-3-line content-height"}}
+      {{#paper-item class="md-3-line"}}
         <img src={{item.profile_image}} alt={{item.screen_name}} class="md-avatar">
         <div class="md-list-item-text">
           <h3>{{item.screen_name}}</h3>

@@ -2,6 +2,9 @@
 * {
   font-family: 'Open Sans', sans-serif !important;
 }
+.no-pad-bottom {
+  padding-bottom: 0;
+}
 /* basic positioning */
 .legend { list-style: none; }
 .legend li { float: left; margin-right: 10px; }

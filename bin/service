@@ -73,7 +73,7 @@
                   utils.error
                 );
 
-                socket.emit('push', {
+                socket.emit('tweet', {
                   id: tweet.id_str,
                   location: abbr,
                   screen_name: tweet.user.screen_name,
