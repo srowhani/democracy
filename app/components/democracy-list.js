@@ -6,7 +6,7 @@ export default Ember.Component.extend({
   force: null,
   classNames: ['content-height'],
   offset: 0,
-  limit: 10,
+  limit: 8,
   results: Ember.A(),
   filteredResults: Ember.computed('filter', 'force', function(){
     let self = this;
