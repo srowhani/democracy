@@ -5,7 +5,7 @@ export default Ember.Component.extend({
   offset: 0,
   limit: 50,
   results: Ember.A(),
-  filteredResults: Ember.computed('filter', 'results', function(){
+  filteredResults: Ember.computed('filter', function(){
     console.log('filter computed');
     let self = this;
 
@@ -33,9 +33,8 @@ export default Ember.Component.extend({
       let l = self.get('results');
 
       Array.prototype.push.apply(l, e);
-      console.log(l);
       self.set('results', l);
-      self.set('filter', self.get('filter') + '');
+      self.set('filter', self.get('filter') ? self.get('filter') + '' : '');
     });
 
     //fires for qt3.14 paginate
