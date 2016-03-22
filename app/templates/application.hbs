@@ -1,20 +1,15 @@
-<h2 id="title">Twitter Votes for 2016 US Candidates</h2>
-{{d3-topology}}
-{{#if tweet}}
-  <div style='position: absolute; right:0; bottom: 0'>
-    {{twitter-block tweet=tweet}}
+<div style='padding:2px' class='content-height'>
+  <div class='content-main'>
+    <h2 id="title">Twitter Votes for 2016 US Candidates</h2>
+    {{democracy-topology}}
+    {{democracy-legend}}
   </div>
-{{/if}}
-<ul style='position: absolute; top: 5px; right: 5px; font-size:90%' class="legend">
-  <li>
-    <span style='background-color: rgb(113, 115, 219)'></span>Democrat</li>
-  <li>
-    <span style='background-color: rgb(201, 58, 58)'></span>Republican</li>
-  <li>
-    <span style='background-color: rgb(50, 51, 51)'></span>Neutral</li>
-</ul>
-<div class="github-fork-ribbon-wrapper left-bottom">
-  <div class="github-fork-ribbon">
-    <a href="https://github.com/srowhani/democracy">Fork me on GitHub</a>
+  <div class='content-list'>
+    {{democracy-list}}
+  </div>
+  <div class="github-fork-ribbon-wrapper left-bottom">
+    <div class="github-fork-ribbon">
+      <a href="https://github.com/srowhani/democracy">Fork me on GitHub</a>
+    </div>
   </div>
 </div>
