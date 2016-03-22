@@ -20,7 +20,7 @@ module.exports = function(server, db) {
         });
         socket.on('load_tweets', function(query){
           db.serialize(function(){
-              let q = 'select screen_name, text, location, profile_image, user_id from ' +
+              var q = 'select screen_name, text, location, profile_image, user_id from ' +
                       'tweets join users where tweets.user_id = users.id limit 50 offset ?;'
 
               db.all(q, query.offset, function(err, rows){

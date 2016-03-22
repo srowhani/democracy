@@ -47,6 +47,7 @@ export default Ember.Component.extend({
           offset: self.get('offset'),
           filter: self.get('filter') || ""
         });
+        self.set('filter', self.get('filter') ? self.get('filter') + '' : '');
       }
     }, false);
   }
