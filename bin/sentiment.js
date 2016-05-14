@@ -9,34 +9,33 @@
  * @return void
  */
 ;
-(function(watson, sqlite3, Twitter) {
+(function(sentiment, sqlite3, Twitter) {
   'use strict';
   var db = new sqlite3.Database('data/democracy.db');
-  var personality_insights = watson.personality_insights({
-    username: process.env.BLUEMIX_USER,
-    password: process.env.BLUEMIX_PASS,
-    version: 'v2'
-  });
   var client = new Twitter({
     consumer_key: process.env.TWITTER_CONSUMER_KEY,
     consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
     access_token_key: process.env.TWITTER_ACCESS_KEY,
     access_token_secret: process.env.TWITTER_ACCESS_SECRET,
   });
-  db.serialize(function(){
-    db.each('select id from users join insights where users.id = insights.user_id and insights.personality is NULL limit 10',
-      function(err, row){
-        var id = row.id;
-        var query = [];
-        db.all('select text from tweets where tweets.user_id = ' + id + ';', function(e, r){
-          var a = r.reduce()
+  db.serialize(function() {
+    db.all('SELECT * FROM users JOIN tweets ON users.id = tweets.user_id WHERE personality = NULL ORDER BY users.id ',
+      function(err, rows) {
+        if (err) throw err;
+        var co = {};
+        rows.forEach(function(e) {
+          var s = sentiment(e.text).score;
+          co[e.user_id] = co[e.user_id] === undefined ? co[e.user_id] + s : s;
+        });
+        Object.keys(co).forEach(function(el) {
+          db.serialize(function(err) {
+            db.run('UPDATE users set personality = ? where id = ?', co[el], el);
+          });
         });
       });
   });
-
-
 })(
-  require('watson-developer-cloud'),
+  require('sentiment'),
   require('sqlite3'),
   require('twitter')
 );

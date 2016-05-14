@@ -21,20 +21,11 @@
   });
   db.serialize(function() {
     [{
-      name: 'parties',
-      params: ['id INTEGER PRIMARY KEY', 'party_name TEXT']
-    }, {
-      name: 'candidates',
-      params: ['id INTEGER PRIMARY KEY', 'candidate_name TEXT', 'party_id INTEGER references parties(id) on update cascade']
-    }, {
       name: 'users',
-      params: ['id INTEGER PRIMARY KEY', 'screen_name TEXT', 'profile_image TEXT', 'location TEXT', 'preferred_candidate INTEGER references candidates(id)']
+      params: ['id INTEGER PRIMARY KEY', 'screen_name TEXT', 'profile_image TEXT', 'location TEXT']
     }, {
       name: 'tweets',
       params: ['id INTEGER PRIMARY KEY', 'text TEXT', 'user_id INTEGER references users(id)']
-    }, {
-      name: 'ratings',
-      params: ['tweet_id INTEGER references tweets(id) on update cascade', 'rt_count INTEGER', 'favourite_count INTEGER']
     }].forEach(function(e) {
       db.run('create table if not exists ' + e.name + '( ' + e.params.join(', ') + ');')
     });
@@ -45,7 +36,6 @@
     }, function(stream) {
       utils.log(p.start + '\nPress CTRL + C to exit.');
       stream.on('data', function(tweet) {
-        console.log(tweet);
         var abbr = tweet.user.location ? utils.abbr(tweet.user.location) : false; //valid state
         var filters = process.argv[2].split(',');
         var notRT = filters.some(function(e) {
