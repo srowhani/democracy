@@ -20,7 +20,6 @@ export default Ember.Component.extend({
     if(!f) return r;
     let s =  r.filter(function(el){
       let keys = Object.keys(el);
-
       return keys.some(function(e){
         return (el[e] + "").toLowerCase().indexOf(f.toLowerCase()) > -1;
       });

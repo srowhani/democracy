@@ -7,7 +7,7 @@
  */
 module.exports = function(server, db) {
     "use strict";
-    var SELECT = 'select screen_name, text, location, profile_image, user_id from tweets join users on tweets.user_id = users.id limit 2500;';
+    var SELECT = 'select screen_name, text, location, profile_image, user_id, personality from tweets join users on tweets.user_id = users.id limit 2500;';
     var io = require('socket.io')(server);
     io.sockets.on('connection', function(socket) {
         socket.on('ready', function(){
@@ -23,7 +23,7 @@ module.exports = function(server, db) {
           db.serialize(function(){
 
               var q = 'select screen_name, text, location, profile_image, user_id from ' +
-                      'tweets join users where tweets.user_id = users.id and (screen_name like $filter or text like $filter) limit $limit offset $offset;'
+                      'tweets join users where tweets.user_id = users.id and (screen_name like $filter or text like $filter) order by personality ASC limit $limit offset $offset;'
 
               db.all(q, {
                 $filter : "%" + query.filter + "%",

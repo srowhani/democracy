@@ -16,7 +16,7 @@ export default Ember.Component.extend({
             r: 0,
             d: 0
           };
-          obj[e.location]['r']++;
+          obj[e.location]['r'] += e.personality < 0 ? (1 / Math.abs(e.personality)) : 1;
         } else if (democrat.some(function(e) {
             return text.includes(e);
           })) {
@@ -24,7 +24,7 @@ export default Ember.Component.extend({
             r: 0,
             d: 0
           };
-          obj[e.location]['d']++;
+          obj[e.location]['d'] += e.personality < 0 ? (1 / Math.abs(e.personality)) : 1;
         }
         Object.keys(obj).forEach(function(e) {
           if (obj[e].r - obj[e].d === 0)
@@ -78,7 +78,7 @@ export default Ember.Component.extend({
           tip.hide();
           tip.html(function(data) {
             var state = data.properties.STATE_ABBR;
-            return `State: ${state}<br/>` + `Republican: ${!obj[state] ? 0 : obj[state].r}<br/>` + `Democratic: ${!obj[state] ? 0 : obj[state].d}`;
+            return `State: ${state}<br/>` + `Republican: ${!obj[state] ? 0 : Math.floor(obj[state].r)}<br/>` + `Democratic: ${!obj[state] ? 0 : Math.floor(obj[state].d)}`;
           });
           tip.attr('class', 'd3-tip animate').show(d);
         });
