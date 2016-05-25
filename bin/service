@@ -36,7 +36,6 @@
     }, function(stream) {
       utils.log(p.start + '\nPress CTRL + C to exit.');
       stream.on('data', function(tweet) {
-        console.log(tweet);
         var abbr = tweet.user.location ? utils.abbr(tweet.user.location) : false; //valid state
         var filters = process.argv[2].split(',');
         var notRT = filters.some(function(e) {
